@@ -1,8 +1,8 @@
 import React from 'react'
 import './footer-info.css'
 
-const FooterInfo = ({label, className}) =>{
-    return <span className={className}>{label}</span>
+const FooterInfo = ({label, className, clearCompleted}) =>{
+    return <span onClick={clearCompleted} className={className}>{label}</span>
 }
 
 

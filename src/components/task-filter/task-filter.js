@@ -3,7 +3,7 @@ import FilterButton from "../filter-button/filter-button";
 import './task-filter.css';
 
 export default class TaskFilter extends Component {
-
+acc = 1;
     state ={
         filter:
             [
@@ -18,24 +18,15 @@ export default class TaskFilter extends Component {
     changeFilter =(label)=>{
         const {onfilteredList}=this.props
         this.setState(({filter})=>{
-           // const newFilterList =  JSON.parse(JSON.stringify(this.state.filter));
-            let thisFilter;
             const newFilterList = filter.map((el)=>{
-                // el.label=== label? el.className = 'selected': el.className = ''
-                if(el.label=== label){
+                if(el.label === label){
                     el.className = 'selected'
-                    thisFilter = el.mainClass
+                    onfilteredList(el.mainClass)
                 } else{
                     el.className = ''
                 }
-                // el.className === ''
                 return el
             })
-           // const activeFilter = newFilterList.find((el)=> el.className==='selected');
-           // const thisFilter = newFilterList.find((el)=> el.label=== label);
-            // activeFilter.className = ''
-            // thisFilter.className = 'selected'
-            onfilteredList(thisFilter)
            return{
                filter: newFilterList
            }
@@ -45,12 +36,9 @@ export default class TaskFilter extends Component {
 
 
     render() {
-        const filter = this.state.filter
-        const filterItem = filter.map(({label,className, key})=>{
-            return <li><FilterButton changeFilter={this.changeFilter}
-                                    className={className}
-                                    label={label}
-                                    key={key}/></li>
+        const filter= this.state.filter
+        const filterItem = filter.map(({...item})=>{
+            return <li key={this.acc++}><FilterButton changeFilter={this.changeFilter} {...item}/></li>
         })
 
         return (

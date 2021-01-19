@@ -44,25 +44,30 @@ export default class App extends Component{
 
     changeState = (id, cb)=>{
         this.setState(({listToDo})=>{
-            let newListToDo = this.getNewListToDo();
+            const newListToDo = this.getNewListToDo();
             const task = this.getTaskFromState(id, newListToDo);
             const index = this.getIndex(id);
             cb(newListToDo, index, task);
-            console.log(newListToDo)
             return {
                 listToDo: newListToDo
             }
         });
     }
 
+    clearCompleted = ()=>{
+        this.setState(({listToDo})=>{
+            const newList =  listToDo.filter((el)=> el.className !== 'completed')
+            return {listToDo: newList}
+        })
+    }
+
     onfilteredList =(label)=>{
-        this.changeState(666, (newListToDo, index, task)=>{
-            const filteredList = newListToDo.map((el)=> {
+        this.changeState(666, (newListToDo)=>{
+            newListToDo.map((el)=> {
                 if(label === 'all') el.display = 'block';
                 else el.className === label? el.display = 'block': el.display = 'none'
                 return el
             })
-            newListToDo = filteredList;
         })
     }
 
@@ -77,13 +82,15 @@ export default class App extends Component{
 
     changeStatus= (id)=>{
             this.changeState(id, (arg1, arg2, task)=> {
-            if( task.done === false){
-                task.className = 'completed';
-                task.done = true;
-            } else {
-                task.className = '';
-                task.done = false;
-            }
+                task.className = task.done?  '' : 'completed';
+                task.done = !task.done
+            // if( task.done === false){
+            //     task.className = 'completed';
+            //     task.done = true;
+            // } else {
+            //     task.className = '';
+            //     task.done = false;
+            // }
         });
 
 
@@ -105,7 +112,7 @@ export default class App extends Component{
 
     editTask =(id,event)=>{
         this.changeState(id, (arg, arg2, task)=>{
-            if (event.keyCode == 13) {
+            if (event.keyCode === 13) {
                 task.text = event.target.value;
                 task.done === false ? task.className = '' : task.className = 'completed';
             }
@@ -133,84 +140,10 @@ export default class App extends Component{
                   editTask={this.editTask}
                   countTaskLeft={countTaskLeft}
                   onfilteredList={this.onfilteredList}
+                  clearCompleted={this.clearCompleted}
                />
         </section>
     );
 }
 
 }
-//
-// changeStatus= (id)=>{
-//
-//     this.setState(({listToDo})=>{
-//         const newList = this.getNewListToDo();
-//         const task = this.getTaskFromState(id, newList)
-//         if( task.done === false){
-//             task.className = 'completed';
-//             task.done = true;
-//         } else {
-//             task.className = '';
-//             task.done = false
-//         }
-//         return {
-//             listToDo: newList
-//         }
-//     })
-// }
-//
-// deleteTask =(id)=>{
-//     this.setState(({listToDo})=>{
-//         const newList = this.getNewListToDo();
-//         const inx = this.getIndex(id)
-//         newList.splice(inx, 1)
-//         return {
-//             listToDo: newList
-//         }
-//     })
-// }
-//
-//
-//
-// editingTask= (id)=>{
-//     this.setState(({listToDo})=>{
-//         const newList = this.getNewListToDo();
-//         const task = this.getTaskFromState(id,newList)
-//         task.className = 'editing';
-//         return {
-//             listToDo: newList
-//         }
-//     })
-// }
-//
-// editTask =(id,event)=>{
-//     if(event.keyCode == 13){
-//         this.setState(({listToDo})=>{
-//             const val = event.target.value
-//             const newList = this.getNewListToDo();
-//             const task = this.getTaskFromState(id,newList)
-//             task.text = val
-//             task.done === false?  task.className = '': task.className = 'completed'
-//             return {
-//                 listToDo: newList
-//             }
-//         })
-//     }
-//
-// }
-
-
-
-
-// addElement =()=>{
-//     this.setState(({listToDo})=>{
-//         const newArr =  JSON.parse(JSON.stringify(listToDo))
-//         const newElement = this.createNewTask('random')
-//         newArr.unshift(newElement)
-//         return  {
-//             listToDo: newArr
-//         }
-//     })
-// }
-
-
-

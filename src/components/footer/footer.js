@@ -10,7 +10,7 @@ const Footer = (props) => {
         <footer className="footer">
            <FooterInfo className="todo-count" label={`${countTaskLeft} items left`}/>
             <TaskFilter {...props}/>
-            <FooterInfo className="clear-completed" label="Clear completed"/>
+            <FooterInfo {...props} className="clear-completed" label="Clear completed"/>
         </footer>
     );
 }
