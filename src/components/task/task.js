@@ -5,7 +5,7 @@ import TaskLabel from "../task-label/task-label";
 
 
 
-const Task = ({className, display, deleteTask, editingTask, ...props}) => {
+const Task = ({className, display, deleteTask, editingTask,  ...props}) => {
 
     return <div className={className} style={{display: display}} >
                 <TaskToggle   className="toggle" type="checkbox"  {...props}/>

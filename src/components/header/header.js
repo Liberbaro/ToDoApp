@@ -2,11 +2,17 @@ import React from 'react';
 import Title from "../title/title";
 import NewTaskForm from "../new-task-form/new-task-form";
 
-const Header = (props) =>{
-    return <header  className="header">
-        <Title label="ToDoS"/>
-        <NewTaskForm  {...props} className='new-todo' holder="Input do wish"/>
+const Header = ({className, ...props}) =>{
+
+
+    return <header  className={className}>
+        <Title/>
+        <NewTaskForm  {...props}/>
     </header>
+}
+
+Header.defaultProps = {
+    className: 'header'
 }
 
 export default Header;

@@ -8,8 +8,8 @@ import './task-list.css'
 
 const TaskList =({taskList, ...props} )=> {
 
-    const taskLists = taskList.map(({  id, ...item})=>{
-            return <TaskListItem    id={id} key={id} {...item} {...props}/>
+    const taskLists = taskList.map(({  id,  ...item})=>{
+            return <TaskListItem    id={id} key={id}  {...item} {...props}/>
     });
 
         return (

@@ -1,4 +1,6 @@
 import React, {Component} from 'react';
+import PropTypes from 'prop-types';
+import { formatDistance, subDays } from 'date-fns'
 import Header from "../header/header";
 import Main from "../main/main";
 import './app.css'
@@ -15,13 +17,20 @@ export default class App extends Component{
         ]
     }
 
+    static propTypes = {
+        createNewTask: PropTypes.string,
+        getIndex: PropTypes.array,
+    }
+
     createNewTask (text){
         return {
             text: text,
             className: '',
             id:  this.maxID++,
             done: false,
-            display: 'block'
+            display: 'block',
+            timeOfCreate: new Date().getHours(),
+
         }
     }
 
@@ -73,6 +82,7 @@ export default class App extends Component{
 
 
     addElement =(text)=>{
+
         this.changeState(666, (newListToDo)=>{
             const newElement = this.createNewTask(text)
             newListToDo.unshift(newElement)
@@ -111,6 +121,7 @@ export default class App extends Component{
     }
 
     editTask =(id,event)=>{
+        if(event === '') event = "Новая задача";
         this.changeState(id, (arg, arg2, task)=>{
             if (event.keyCode === 13) {
                 task.text = event.target.value;

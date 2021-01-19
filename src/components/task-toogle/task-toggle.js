@@ -1,4 +1,5 @@
 import React, {Component} from 'react'
+import PropType from 'prop-types'
 import './task-toggle.css'
 
 
@@ -6,28 +7,18 @@ import './task-toggle.css'
 const TaskToggle = ({className, type, value,changeStatus,id,editTask})=>{
 
 
-
-        let inputField = <input onKeyDown={(event)=>{(editTask(id,event))}}
+        const inputField = <input onKeyDown={(event)=>{(editTask(id,event))}}
                                 defaultValue={value} type={type}
                                 className={className}/>;
-        let checkbox =  <input onClick={()=>changeStatus(id)}  type={type} className={className}/>;
+        const checkbox =  <input onClick={()=>changeStatus(id)}  type={type} className={className}/>;
 
         return (value)? inputField : checkbox;
 
 
 }
+TaskToggle.changeStatus ={
+        editTask: PropType.string
+}
 export default TaskToggle;
 
 
-//const TaskToggle = ({className, type, value,changeStatus,id,editTask})=>{
-//
-//
-//
-//         let inputField = <input onKeyDown={(event)=>{(editTask(id,event))}}
-//                                 defaultValue={value} type={type} className={className}/>;
-//         let checkbox =  <input onClick={()=>changeStatus(id)}  type={type} className={className}/>;
-//         return (value)? inputField : checkbox;
-//
-//
-// }
-// export default TaskToggle;

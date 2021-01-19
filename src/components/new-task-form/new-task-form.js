@@ -1,7 +1,14 @@
 import React , {Component}from 'react';
 import './new-task-form.css'
+import Title from "../title/title";
 
 export default class NewTaskForm extends Component {
+
+    static defaultProps = {
+        className: 'new-todo',
+        holder: "Input do wish"
+    }
+
     state = {
         value: ''
     }
