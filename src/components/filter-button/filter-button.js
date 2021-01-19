@@ -1,7 +1,7 @@
 import React from 'react';
 
-const FilterButton = ({label, className}) =>{
-      return <button className ={className}> {label} </button>
+const FilterButton = ({label, className, changeFilter}) =>{
+      return <button onClick={()=>{changeFilter(label)}} className ={className} > {label} </button>
 }
 
 

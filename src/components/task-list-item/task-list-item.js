@@ -2,20 +2,23 @@ import React, {Component} from 'react';
 import Task from "../task/task";
 import TaskToggle from "../task-toogle/task-toggle";
 
-const TaskListItem=({className, id, mainFunction, text, changeStatus, editingTask, deleteTask, editTask})=> {
+const TaskListItem=({className, text, ...props})=> {
 
 
 
-            const inputField =  <TaskToggle id={id} mainFunction={mainFunction}
+            const inputField =  <TaskToggle
+                // id={id} editTask={editTask}
                                             type="text" className="edit"
-                                            value={text} editTask={editTask}/>
+                                            value={text}
+                                            {...props} />
             return (
                 <li className={className}>
-                    <Task changeStatus={changeStatus}  text={text}
-                          className='view' mainFunction={mainFunction}
-                          mainClass={className} id={id}
-                          editingTask={editingTask}
-                          deleteTask={deleteTask}/>
+                    <Task
+                        // changeStatus={changeStatus}  text={text} id={id}  editingTask={editingTask}  deleteTask={deleteTask} displayStatus={display}
+                            text={text}
+                          className='view'
+                          {...props}
+                       />
                     {(className === 'editing') ? inputField: null}
                 </li>
             )
@@ -23,3 +26,26 @@ const TaskListItem=({className, id, mainFunction, text, changeStatus, editingTas
 }
 
 export default TaskListItem;
+
+//
+// const TaskListItem=({className, id, taskEditing, text, display, changeStatus, editingTask, deleteTask, editTask})=> {
+//
+//
+//
+//     const inputField =  <TaskToggle id={id}
+//                                     type="text" className="edit"
+//                                     value={text} editTask={editTask}/>
+//     return (
+//         <li className={className}>
+//             <Task
+//                 changeStatus={changeStatus}  text={text}
+//                 className='view'
+//                 mainClass={className} id={id}
+//                 editingTask={editingTask}
+//                 deleteTask={deleteTask}
+//                 displayStatus={display}/>
+//             {(className === 'editing') ? inputField: null}
+//         </li>
+//     )
+//
+// }

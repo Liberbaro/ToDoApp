@@ -7,7 +7,7 @@ const Main = (props)=>{
     return (
         <section className="main">
             <TaskList {...props}/>
-            <Footer />
+            <Footer {...props} />
         </section>
     );
 }
