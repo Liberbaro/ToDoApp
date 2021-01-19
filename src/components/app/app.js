@@ -1,6 +1,5 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
-import { formatDistance, subDays } from 'date-fns'
 import Header from "../header/header";
 import Main from "../main/main";
 import './app.css'
@@ -10,9 +9,9 @@ export default class App extends Component{
     maxID = 666;
     state = {
         listToDo: [
-            this.createNewTask('Completed'),
-            this.createNewTask('Editing'),
-            this.createNewTask('Active'),
+            this.createNewTask('Рефакторинг'),
+            this.createNewTask('Редактирование пустых задач'),
+            this.createNewTask('Корректая дата'),
             this.createNewTask('Закончить приложение'),
         ]
     }
@@ -82,7 +81,7 @@ export default class App extends Component{
 
 
     addElement =(text)=>{
-
+        console.log(text)
         this.changeState(666, (newListToDo)=>{
             const newElement = this.createNewTask(text)
             newListToDo.unshift(newElement)
@@ -94,13 +93,6 @@ export default class App extends Component{
             this.changeState(id, (arg1, arg2, task)=> {
                 task.className = task.done?  '' : 'completed';
                 task.done = !task.done
-            // if( task.done === false){
-            //     task.className = 'completed';
-            //     task.done = true;
-            // } else {
-            //     task.className = '';
-            //     task.done = false;
-            // }
         });
 
 
@@ -121,7 +113,7 @@ export default class App extends Component{
     }
 
     editTask =(id,event)=>{
-        if(event === '') event = "Новая задача";
+
         this.changeState(id, (arg, arg2, task)=>{
             if (event.keyCode === 13) {
                 task.text = event.target.value;

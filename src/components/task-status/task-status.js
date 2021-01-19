@@ -1,5 +1,5 @@
 import React, {Component} from  'react'
-import { formatDistance, formatDistanceToNow } from 'date-fns'
+// import { formatDistance, formatDistanceToNow } from 'date-fns'
 
 export default class TaskStatus extends Component {
 
@@ -22,7 +22,6 @@ export default class TaskStatus extends Component {
         // console.log(formatDistance)
         // let time = formatDistanceToNow(timeOfCreate, {includeSeconds: true}  )
             // console.log(new Date(), timeOfCreate,   { addSuffix: true })
-        console.log(timeOfCreate)
         if(className ==='description'){
             return <span className={className} >{text}</span>
         }

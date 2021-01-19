@@ -1,6 +1,6 @@
-import React, {Component} from 'react'
-import PropType from 'prop-types'
-import './task-toggle.css'
+import React from 'react';
+import PropType from 'prop-types';
+import './task-toggle.css';
 
 
 

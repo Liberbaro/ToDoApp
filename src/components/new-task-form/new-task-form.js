@@ -1,45 +1,46 @@
-import React , {Component}from 'react';
-import './new-task-form.css'
-import Title from "../title/title";
+import React, {Component} from 'react';
+import PropTypes from 'prop-types'
+import './new-task-form.css';
 
 export default class NewTaskForm extends Component {
 
     static defaultProps = {
         className: 'new-todo',
-        holder: "Input do wish"
+        holder: "Input do wish",
+        type: 'text',
     }
 
+    static propTypes = {
+        onSubmit: PropTypes.func,
+        onChange: PropTypes.func
+    }
     state = {
         value: ''
     }
 
-    testFun(e){
-        const {addElement} = this.props
-        e.preventDefault();
-        addElement(this.state.value)
-        this.setState(()=>{
-            return{
-                value: ''
-            }
-        })
+    changeInputValue = (value)=>{
+        this.setState({ value: value })
     }
 
-    inputValue = (e) =>{
-            this.setState(({value})=>{
-                return(
-                    {value: e.target.value}
-                )
-            })
+    onSubmitFormHandler(e){
+        const {addElement} = this.props
+        const {value} = this.state
+        e.preventDefault();
+        addElement(value)
+        this.changeInputValue('')
+    }
+
+    onChangeInputHandler = (e) =>{
+        this.changeInputValue( e.target.value)
     }
 
     render() {
-    const {holder, className} = this.props
-
-        return <form onSubmit={(e)=>{this.testFun(e)}}>
-            <input onChange={(e)=>this.inputValue(e)} className={className} type='text' placeholder={holder} value={this.state.value}/>
-        </form>
+    const {holder, className, type} = this.props
+        return  <form onSubmit={this.onSubmitFormHandler}>
+                <input onChange={this.onChangeInputHandler}
+                       className={className} type={type} placeholder={holder}
+                       value={this.state.value}/>
+                </form>
     }
-
-
 }
 
