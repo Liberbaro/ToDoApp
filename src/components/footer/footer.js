@@ -1,18 +1,26 @@
-import React from 'react'
+import React from 'react';
+import PropsType from 'prop-types';
 import FooterInfo from "../footer-info/footer-info";
 import TaskFilter from "../task-filter/task-filter";
-import './footer.css'
+import './footer.css';
 
 
-const Footer = (props) => {
-    const {countTaskLeft} = props
+const Footer = ({countTasksLeft, ...props}) => {
     return (
         <footer className="footer">
-           <FooterInfo className="todo-count" label={`${countTaskLeft} items left`}/>
+            <FooterInfo className="todo-count" label={`${countTasksLeft} items left`}/>
             <TaskFilter {...props}/>
             <FooterInfo {...props} className="clear-completed" label="Clear completed"/>
         </footer>
     );
+}
+
+Footer.defaultProps = {
+    countTaskLeft: 0
+}
+
+Footer.propTypes = {
+    countTasksLeft: PropsType.number.isRequired,
 }
 
 

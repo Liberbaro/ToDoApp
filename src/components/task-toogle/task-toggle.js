@@ -2,23 +2,39 @@ import React from 'react';
 import PropType from 'prop-types';
 import './task-toggle.css';
 
+const TaskToggle = ({className, type, value, changeTaskStatus, id, saveEditingTask}) => {
 
+    function onKeyDownInputFieldHandler(e) {
+        if (e.keyCode === 13) return saveEditingTask(id, e)
+    };
 
-const TaskToggle = ({className, type, value,changeStatus,id,editTask})=>{
+    function onClickCheckboxHandler() {
+        return changeTaskStatus(id)
+    }
 
+    const inputField = <input onKeyDown={onKeyDownInputFieldHandler}
+                              defaultValue={value} type={type}
+                              className={className}/>;
 
-        const inputField = <input onKeyDown={(event)=>{(editTask(id,event))}}
-                                defaultValue={value} type={type}
-                                className={className}/>;
-        const checkbox =  <input onClick={()=>changeStatus(id)}  type={type} className={className}/>;
+    const checkbox = <input onClick={onClickCheckboxHandler}
+                            type={type} className={className}/>;
 
-        return (value)? inputField : checkbox;
-
-
+    return (className === 'edit') ? inputField : checkbox;
 }
-TaskToggle.changeStatus ={
-        editTask: PropType.string
+
+TaskToggle.defaultProps = {
+    saveEditingTask: () => {},
+    changeTaskStatus: () => {},
 }
+
+TaskToggle.propTypes = {
+    saveEditingTask: PropType.func.isRequired,
+    changeTaskStatus: PropType.func.isRequired,
+    className: PropType.string,
+    type: PropType.string,
+    value: PropType.string
+}
+
 export default TaskToggle;
 
 

@@ -1,53 +1,58 @@
-import React, {Component} from  'react';
+import React, {Component} from 'react';
+import PropTypes from 'prop-types';
 import FilterButton from "../filter-button/filter-button";
 import './task-filter.css';
 
 export default class TaskFilter extends Component {
-acc = 1;
-    state ={
-        filter:
-            [
-                {label: 'All', className: 'selected', key: 10, mainClass: 'all' },
-                {label: 'Active', className: '', key: 20, mainClass: ''},
-                {label: 'Completed', className: '', key:  30, mainClass: 'completed'},
-            ]
 
+    static defaultProps = {
+        changeSelectedFilter: () => {}
+    }
+
+    static propTypes = {
+        changeSelectedFilter: PropTypes.func.isRequired
+    }
+
+    key = 1;
+    state = {
+        filtersList: [
+            {label: 'All', className: 'selected', key: 10, mainClass: 'all'},
+            {label: 'Active', className: '', key: 20, mainClass: ''},
+            {label: 'Completed', className: '', key: 30, mainClass: 'completed'}
+        ]
     }
 
 
-    changeFilter =(label)=>{
-        const {onfilteredList}=this.props
-        this.setState(({filter})=>{
-            const newFilterList = filter.map((el)=>{
-                if(el.label === label){
-                    el.className = 'selected'
-                    onfilteredList(el.mainClass)
-                } else{
-                    el.className = ''
-                }
-                return el
-            })
-           return{
-               filter: newFilterList
-           }
-        })
+    changeSelectedFilter = (label) => {
+        const {selectTaskFilter} = this.props;
+        this.setState(({filtersList}) => {
+            const newFilterList = filtersList.map((el) => {
+                el.className = (el.label === label) ? 'selected' : '';
+                if (el.className === 'selected') selectTaskFilter(el.mainClass);
+                return el;
+            });
+            return {
+                filter: newFilterList
+            }
+        });
 
-    }
+    };
 
 
     render() {
-        const filter= this.state.filter
-        const filterItem = filter.map(({...item})=>{
-            return <li key={this.acc++}><FilterButton changeFilter={this.changeFilter} {...item}/></li>
-        })
-
+        const {filtersList} = this.state;
+        const filterItem = filtersList.map(({...item}) => {
+            return <li key={this.key++}>
+                     <FilterButton onClickTaskFilterBtnHandler={this.changeSelectedFilter}
+                              {...item}/>
+                  </li>
+        });
         return (
             <ul className='filters'>
                 {filterItem}
             </ul>
         );
-    }
-
-}
+    };
+};
 
 
