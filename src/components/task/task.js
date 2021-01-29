@@ -1,5 +1,5 @@
 import React from 'react';
-import PropType from 'prop-types';
+import PropTypes from 'prop-types';
 import TaskToggle from "../task-toogle/task-toggle";
 import TaskButton from "../task-button/task-button";
 import TaskLabel from "../task-label/task-label";
@@ -21,10 +21,10 @@ Task.defaultProps = {
     deleteTask: () => {}
 }
 Task.propTypes = {
-    className: PropType.string,
-    type: PropType.string,
-    editTaskValue: PropType.func.isRequired,
-    deleteTask: PropType.func.isRequired,
+    className: PropTypes.string,
+    type: PropTypes.string,
+    editTaskValue: PropTypes.func.isRequired,
+    deleteTask: PropTypes.func.isRequired,
 }
 
 export default Task;

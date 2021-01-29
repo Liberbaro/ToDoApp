@@ -1,5 +1,5 @@
 import React from 'react';
-import PropType from 'prop-types';
+import PropTypes from 'prop-types';
 import './task-toggle.css';
 
 const TaskToggle = ({className, type, value, changeTaskStatus, id, saveEditingTask}) => {
@@ -28,11 +28,11 @@ TaskToggle.defaultProps = {
 }
 
 TaskToggle.propTypes = {
-    saveEditingTask: PropType.func.isRequired,
-    changeTaskStatus: PropType.func.isRequired,
-    className: PropType.string,
-    type: PropType.string,
-    value: PropType.string
+    saveEditingTask: PropTypes.func.isRequired,
+    changeTaskStatus: PropTypes.func.isRequired,
+    className: PropTypes.string,
+    type: PropTypes.string,
+    value: PropTypes.string
 }
 
 export default TaskToggle;

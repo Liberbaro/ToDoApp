@@ -1,5 +1,5 @@
 import React from 'react';
-import PropType from 'prop-types';
+import PropTypes from 'prop-types';
 
  const TaskButton = ({className, taskBtnFn, id})=>{
         return  <button className={className} onClick={()=>taskBtnFn(id)}/>
@@ -11,8 +11,8 @@ TaskButton.defaultProps = {
 }
 
 TaskButton.propTypes = {
-    taskBtnFn: PropType.func.isRequired,
-    className: PropType.string.isRequired
+    taskBtnFn: PropTypes.func.
+    className: PropTypes.string.isRequired
 }
 
 export default TaskButton;

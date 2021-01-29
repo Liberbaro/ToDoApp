@@ -1,5 +1,5 @@
 import React from 'react';
-import PropType from 'prop-types';
+import PropTypes from 'prop-types';
 import TaskListItem from "../task-list-item/task-list-item";
 import './task-list.css';
 
@@ -21,7 +21,7 @@ TaskList.defaultProps = {
 }
 
 TaskList.propTypes = {
-    taskList: PropType.array.isRequired,
+    taskList: PropTypes.array.isRequired,
 }
 
 export default TaskList;

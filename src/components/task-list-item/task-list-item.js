@@ -1,5 +1,5 @@
 import React from 'react';
-import PropType from 'prop-types';
+import PropTypes from 'prop-types';
 import Task from "../task/task";
 import TaskToggle from "../task-toogle/task-toggle";
 
@@ -21,8 +21,8 @@ TaskListItem.propTypes = {
 }
 
 TaskListItem.propTypes = {
-    className: PropType.string.isRequired,
-    text: PropType.string
+    className: PropTypes.string.isRequired,
+    text: PropTypes.string
 }
 
 export default TaskListItem;
