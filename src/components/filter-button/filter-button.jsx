@@ -4,9 +4,7 @@ import PropTypes from 'prop-types';
 const FilterButton = ({ label, className, onClickTaskFilterBtnHandler }) => {
   return (
     <button
-      onClick={() => {
-        return onClickTaskFilterBtnHandler(label);
-      }}
+      onClick={() => onClickTaskFilterBtnHandler(label)}
       className={className}
       label={label}
       type="button"

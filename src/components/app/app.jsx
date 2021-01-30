@@ -4,23 +4,12 @@ import Main from '../main/main';
 import './app.css';
 
 export default class App extends Component {
-  taskId = 100; // Ошибка. Разобраться.
+  taskId = 100;
 
   state = {
     listToDo: [],
-    // eslint-disable-next-line react/no-unused-state
-    filter: 'all',
+    activeFilter: 'all',
   };
-
-  getNewListToDo() {
-    const { listToDo } = this.state;
-    return JSON.parse(JSON.stringify(listToDo));
-  }
-
-  getTaskIndex(id) {
-    const { listToDo } = this.state;
-    return listToDo.findIndex((el) => el.id === id);
-  }
 
   addTaskToListToDo = (text) => {
     this.changeListToDo(100, (newListToDo) => {
@@ -44,9 +33,9 @@ export default class App extends Component {
     });
   };
 
-  saveNewTaskValue = (id, e) => {
+  saveNewTaskValue = (id, evt) => {
     this.changeListToDo(id, (arg, arg2, task) => {
-      task.text = e.target.value;
+      task.text = evt.target.value;
       task.className = task.done ? 'completed' : '';
     });
   };
@@ -55,16 +44,14 @@ export default class App extends Component {
     this.changeListToDo(id, (arg1, arg2, task) => {
       task.className = task.done ? '' : 'completed';
       task.done = !task.done;
+      const { activeFilter } = this.state;
+      if (activeFilter === 'all') task.display = 'block';
+      else task.display = task.className === activeFilter ? 'block' : 'none';
     });
   };
 
   removeTaskFromToDoList = (id) => {
     this.changeListToDo(id, (newListToDo, index) => newListToDo.splice(index, 1));
-  };
-
-  getTaskFromListToDo = (id, listToDo) => {
-    const index = this.getTaskIndex(id);
-    return listToDo[index];
   };
 
   selectTaskFilter = (label) => {
@@ -75,25 +62,28 @@ export default class App extends Component {
         return el;
       });
     });
+    this.setState({ activeFilter: label });
   };
 
   changeListToDo = (id, cb) => {
     this.setState(() => {
-      const newListToDo = this.getNewListToDo(),
-            index = this.getTaskIndex(id),
-            task = this.getTaskFromListToDo(id, newListToDo);
+      const { listToDo } = this.state,
+            newListToDo = JSON.parse(JSON.stringify(listToDo)),
+            index = newListToDo.findIndex((el) => el.id === id),
+            task = newListToDo[index];
       cb(newListToDo, index, task);
       return { listToDo: newListToDo };
     });
   };
 
   createNewTask(text) {
+    const { activeFilter } = this.state;
     return {
       text,
       className: '',
       id: this.taskId++,
       done: false,
-      display: 'block',
+      display: activeFilter === 'completed' ? 'none' : 'block',
       timeOfCreate: new Date().getTime(),
     };
   }
@@ -103,7 +93,7 @@ export default class App extends Component {
           countTasksLeft = listToDo.filter(({ done }) => !done).length;
     return (
       <section className="todoapp">
-        <Header addTaskToListToDo={this.addTaskToListToDo} asdas="aa" />
+        <Header addTaskToListToDo={this.addTaskToListToDo} asdas="aa"/>
         <Main
           taskList={listToDo}
           countTasksLeft={countTasksLeft}
@@ -112,8 +102,7 @@ export default class App extends Component {
           saveNewTaskValue={this.saveNewTaskValue}
           changeTaskStatus={this.changeTaskStatus}
           editTaskValue={this.editTaskValue}
-          removeTaskFromToDoList={this.removeTaskFromToDoList}
-        />
+          removeTaskFromToDoList={this.removeTaskFromToDoList} />
       </section>
     );
   }

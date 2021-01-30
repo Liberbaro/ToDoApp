@@ -1,4 +1,3 @@
-/* eslint-disable react/destructuring-assignment */
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { formatDistanceToNow } from 'date-fns';
@@ -9,10 +8,13 @@ export default class TaskLabel extends Component {
     text: PropTypes.string.isRequired,
   };
 
+  // eslint-disable-next-line react/destructuring-assignment
   state = { time: formatDistanceToNow(this.props.timeOfCreate, { includeSeconds: true }) };
 
   tick = () => {
-    this.setState({ time: formatDistanceToNow(this.props.timeOfCreate, { includeSeconds: true }) });
+    const { timeOfCreate } = this.props,
+          timeAfterCreations = formatDistanceToNow(timeOfCreate, { includeSeconds: true });
+    this.setState({ time: timeAfterCreations });
   };
 
   componentDidMount = () => {
@@ -24,10 +26,12 @@ export default class TaskLabel extends Component {
   };
 
   render() {
+    const { text } = this.props,
+          { time } = this.state;
     return (
       <label>
-        <span className="description"> {this.props.text} </span>
-        <span className="created"> created {`${this.state.time}`} ago </span>
+        <span className="description"> {text} </span>
+        <span className="created"> created {`${time}`} ago </span>
       </label>
     );
   }

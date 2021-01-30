@@ -3,8 +3,8 @@ import PropsType from 'prop-types';
 import './footer-info.css';
 
 const FooterInfo = ({ label, className, clearCompletedTasks }) => {
-  function onKeyDownInfoHandler(e) {
-    if (e.keyCode === 13) clearCompletedTasks();
+  function onKeyDownInfoHandler(evt) {
+    if (evt.keyCode === 13) clearCompletedTasks();
     return '';
   }
 

@@ -1,4 +1,3 @@
-/* eslint-disable quotes */
 import React from 'react';
 import PropsType from 'prop-types';
 import FooterInfo from '../footer-info/footer-info';
